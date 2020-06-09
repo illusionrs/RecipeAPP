@@ -24,11 +24,16 @@
 }
 
 .heading{
-    background-color:#ffbe76;
+    background-color: #ffffb3;
     padding-top: 10px;
     padding-bottom: 10px;
-    color: black;
-    font-size: large;
+    height: 40px;
+    
+}
+.headone{
+    color: #ff80b3;
+    font-size: xx-large;
+    font-family: sans-serif;
 }
 .contain{
     display: flex;
@@ -45,5 +50,51 @@
 .containerone{
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    
 
+}
+.containertwo{
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+    margin-top: 20px;
+   
+}
+/* //for like */
+
+.like{
+  margin-right: 50px;
+  height: 40px;
+  width: 28px;
+  float: right;
+  
+
+}
+#box { 
+    
+    margin:4px, 4px; 
+    padding:4px; 
+    background-color:#d9d9d9; 
+    width: 830px; 
+    height: 200px; 
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    text-align:justify; 
+} 
+
+/* heading of ingrid */
+
+.ingrdhead{
+   margin-top: 15px;
+   font-style: italic;
+}
+.desc{
+    margin:4px, 4px; 
+    padding:10px; 
+    background-color:#d9d9d9; 
+    width: 830px; 
+    height: auto;
+   
+    text-align:justify; 
 }
