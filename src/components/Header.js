@@ -19,7 +19,9 @@ class Header extends React.Component {
       ingms:[],
       bgColor: "",
       valuecolor: 0,
-      desc:""
+      desc:"",
+      sourceurl:"",
+      
     };
   }
 
@@ -29,27 +31,7 @@ class Header extends React.Component {
     });
     console.log(this.state.search);
   };
-  findHandler() {
-    let that = this;
-
-    var xmlhttp = new XMLHttpRequest();
-    var url =
-      "https://www.themealdb.com/api/json/v1/1/search.php?s=" +
-      this.state.search;
-
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        that.setState({
-          name: JSON.parse(this.responseText).meals,
-        });
-
-        console.log(this.responseText);
-        console.log(that.state.name[0].strMeal);
-      }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-  }
+  
   findoneHandler = () => {
     let that = this;
 
@@ -63,26 +45,21 @@ class Header extends React.Component {
         if (JSON.parse(this.responseText).meals != null) {
           that.setState({
             value: 1,
-            valueone: 0,
+            valueone: 1,
             name: JSON.parse(this.responseText).meals[0].strMeal,
             ims: JSON.parse(this.responseText).meals[0].strMealThumb,
             catmeal: JSON.parse(this.responseText).meals[0].strCategory,
             areameal: JSON.parse(this.responseText).meals[0].strArea,
-            desc: JSON.parse(this.responseText).meals[0].strInstructions
+            desc: JSON.parse(this.responseText).meals[0].strInstructions,
+            sourceurl: JSON.parse(this.responseText).meals[0].strSource,
+            
           });
           data = JSON.parse(this.responseText).meals;
           console.log("inner", data[0]);
 
           
 
-          // temp=JSON.parse(this.responseText).meals[0].match(/strIngredient/g);
-          // console.log(temp);
-
-          // while((JSON.parse(this.responseText).meals[0].strIngredient+i)!=="")
-          // {
-          //    temp.push(JSON.parse(this.responseText).meals[0].strIngredient+i);
-          //    i++;
-          // }
+          
           var b = data[0];
           console.log("outer", data);
           let arr = [];
@@ -149,7 +126,7 @@ class Header extends React.Component {
             placeholder="Enter the Name of Dish"
             onChange={this.searchHandler}
           ></input>
-          {/* <input type="submit">Get</input> */}
+          
           <input
             className="bt"
             type="submit"
@@ -159,7 +136,7 @@ class Header extends React.Component {
         </div>
 
         {this.state.valueone === 0 ? (
-          <div className="hd">
+          <div className="hdone">
             Type a Dish Name to Search for it's ingredients
           </div>
         ) : (
@@ -170,15 +147,23 @@ class Header extends React.Component {
           <div className="contain">
             <div className="heading">
               <center>
-                <span className="headone">{this.state.name}</span>
-
-                <i
-                  className="fa fa-heart-o  like"
+              <a href={this.state.sourceurl}  className="link"><span className="headone">{this.state.name}</span></a>  
+               
+               </center>
+               <center>
+               <span className="like">
+               <i
+                  className="fa fa-heart-o  "
                   aria-hidden="true"
                   style={{ color: this.state.bgColor }}
                   onClick={this.boxClick}
                 />
-              </center>
+               
+               </span>
+               </center>
+               
+               
+              
             </div>
 
             <div className="containerone">
@@ -197,14 +182,14 @@ class Header extends React.Component {
                   <p className="ingrdhead">Ingredients</p>
                 <div id="box">
                   {/* this div for ingrd name */}
-                  <div> 
+                  
                   <span>
                   {
                     
                     this.state.ingrd.map(element => {
                       
                     return (
-                      <p>{element}--</p>
+                      <p>{element} ---   </p>
                       
                      
                     ) 
@@ -215,10 +200,28 @@ class Header extends React.Component {
                     
                   }
                   </span>
+                  <span>
+                  {
+                    
+                    this.state.ingms.map(element => {
+                      
+                    return (
+                      <p>{element}</p>
+                      
+                     
+                    ) 
+                    
+                       
+                    })
+
+                    
+                  }
+
+                  </span>
                  
                  
                  
-                 </div>
+                 
                  {/* this is for weight measure */}
                  <div>
                    {

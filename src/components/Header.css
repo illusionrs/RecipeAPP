@@ -2,6 +2,11 @@
     text-align: center;
     font-size: xx-large;
 }
+.hdone{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
 
 .search{
     text-align: center;
@@ -25,15 +30,22 @@
 
 .heading{
     background-color: #ffffb3;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     height: 40px;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     
 }
 .headone{
-    color: #ff80b3;
+    color: #660066;
     font-size: xx-large;
     font-family: sans-serif;
+    font-weight: bold;
+    position: absolute;
+    left: 39%;
 }
 .contain{
     display: flex;
@@ -64,23 +76,26 @@
 /* //for like */
 
 .like{
+    margin-top: 10px;
   margin-right: 50px;
-  height: 40px;
+  height: 20px;
   width: 28px;
   float: right;
+
   
 
 }
 #box { 
-    
     margin:4px, 4px; 
-    padding:4px; 
+    padding-left:30px; 
     background-color:#d9d9d9; 
     width: 830px; 
     height: 200px; 
     overflow-x: hidden; 
     overflow-y: auto; 
     text-align:justify; 
+    display: flex;
+    flex-direction: row;
 } 
 
 /* heading of ingrid */
@@ -97,4 +112,7 @@
     height: auto;
    
     text-align:justify; 
+}
+.link{
+    text-decoration: none;
 }
