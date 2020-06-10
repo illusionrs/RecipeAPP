@@ -3,6 +3,12 @@ import "./Header.css";
 
 class Header extends React.Component {
   constructor() {
+
+    //here I too name for title of it and search will take input vaue
+    // ims is for image source 
+    // i took some value varaible to put some toggle condition
+    //ingrd and ingms will take ingredients name and weight
+    //desc will take method of it
     super();
     this.state = {
       name: "",
@@ -31,6 +37,8 @@ class Header extends React.Component {
   };
 
   findoneHandler = () => {
+    // in this i called API if it will not execute then else will execute
+    //and setting state according to need
     let that = this;
 
     var xmlhttp = new XMLHttpRequest();
@@ -71,7 +79,7 @@ class Header extends React.Component {
           that.setState({
             ingrd: arr,
           });
-
+         // here I m aextracting weight measue of ingredients and above code is taking name of it
           let arrone = [];
           for(var val in b) {
             if (val.match("strMeasure") && b[val] !== "" && b[val] !== null) {
