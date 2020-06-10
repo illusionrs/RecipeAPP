@@ -1,8 +1,6 @@
 import React from "react";
 import "./Header.css";
 
-
-
 class Header extends React.Component {
   constructor() {
     super();
@@ -16,12 +14,12 @@ class Header extends React.Component {
       catmeal: "",
       areameal: "",
       ingrd: [],
-      ingms:[],
+      ingms: [],
       bgColor: "",
       valuecolor: 0,
-      desc:"",
-      sourceurl:"",
-      
+      desc: "",
+      sourceurl: "",
+      valuehead:0
     };
   }
 
@@ -31,7 +29,7 @@ class Header extends React.Component {
     });
     console.log(this.state.search);
   };
-  
+
   findoneHandler = () => {
     let that = this;
 
@@ -45,60 +43,57 @@ class Header extends React.Component {
         if (JSON.parse(this.responseText).meals != null) {
           that.setState({
             value: 1,
-            valueone: 1,
+            valuehead: 1,
+            valueone:0,
             name: JSON.parse(this.responseText).meals[0].strMeal,
             ims: JSON.parse(this.responseText).meals[0].strMealThumb,
             catmeal: JSON.parse(this.responseText).meals[0].strCategory,
             areameal: JSON.parse(this.responseText).meals[0].strArea,
             desc: JSON.parse(this.responseText).meals[0].strInstructions,
             sourceurl: JSON.parse(this.responseText).meals[0].strSource,
-            
           });
           data = JSON.parse(this.responseText).meals;
           console.log("inner", data[0]);
 
-          
-
-          
           var b = data[0];
           console.log("outer", data);
           let arr = [];
           for (var key in b) {
-            if (key.match("strIngredient") && b[key] !== "" && b[key]!==null) {
+            if (
+              key.match("strIngredient") &&
+              b[key] !== "" &&
+              b[key] !== null
+            ) {
               arr.push(b[key]);
             }
           }
           console.log(arr);
           that.setState({
-            ingrd:arr
-          })
+            ingrd: arr,
+          });
 
-          let arrone=[];
-          for (key in b) {
-            if (key.match("strMeasure") && b[key] !== "" && b[key]!==null) {
-              arrone.push(b[key]);
+          let arrone = [];
+          for(var val in b) {
+            if (val.match("strMeasure") && b[val] !== "" && b[val] !== null) {
+              arrone.push(b[val]);
             }
           }
           that.setState({
-            ingms:arrone
-          })
-
-
+            ingms: arrone,
+          });
+          
         } else {
           that.setState({
             nodata: "No data found",
             value: 0,
             valueone: 1,
+            valuehead: 1,
           });
         }
       }
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
-
-    
-
-   
   };
   boxClick = (e) => {
     if (this.state.valuecolor === 0)
@@ -117,7 +112,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <div className="hd">Recpie Finder</div>
+        <div className="hd">Recipe Finder</div>
         <div className="search">
           <input
             className="boxin"
@@ -126,7 +121,7 @@ class Header extends React.Component {
             placeholder="Enter the Name of Dish"
             onChange={this.searchHandler}
           ></input>
-          
+
           <input
             className="bt"
             type="submit"
@@ -135,7 +130,7 @@ class Header extends React.Component {
           />
         </div>
 
-        {this.state.valueone === 0 ? (
+        {this.state.valuehead === 0 ? (
           <div className="hdone">
             Type a Dish Name to Search for it's ingredients
           </div>
@@ -147,23 +142,20 @@ class Header extends React.Component {
           <div className="contain">
             <div className="heading">
               <center>
-              <a href={this.state.sourceurl}  className="link"><span className="headone">{this.state.name}</span></a>  
-               
-               </center>
-               <center>
-               <span className="like">
-               <i
-                  className="fa fa-heart-o  "
-                  aria-hidden="true"
-                  style={{ color: this.state.bgColor }}
-                  onClick={this.boxClick}
-                />
-               
-               </span>
-               </center>
-               
-               
-              
+                <a href={this.state.sourceurl} className="link">
+                  <span className="headone">{this.state.name}</span>
+                </a>
+              </center>
+              <center>
+                <span className="like">
+                  <i
+                    className="fa fa-heart-o  "
+                    aria-hidden="true"
+                    style={{ color: this.state.bgColor }}
+                    onClick={this.boxClick}
+                  />
+                </span>
+              </center>
             </div>
 
             <div className="containerone">
@@ -173,78 +165,39 @@ class Header extends React.Component {
 
               <div className="containertwo">
                 <div>
-                  <i>Category of Meal - </i> {this.state.catmeal}
+                  <i>Category of Meal  - </i> {this.state.catmeal}
                 </div>
                 <div>
-                  <i>Area of the Meal - </i> {this.state.areameal}
+                  <i>Area of the Meal  - </i> {this.state.areameal}
                 </div>
-                <div> 
+                <div>
                   <p className="ingrdhead">Ingredients</p>
-                <div id="box">
-                  {/* this div for ingrd name */}
-                  
-                  <span>
-                  {
-                    
-                    this.state.ingrd.map(element => {
-                      
-                    return (
-                      <p>{element} ---   </p>
-                      
-                     
-                    ) 
-                    
-                       
-                    })
+                  <div id="box">
+                    {/* this div for ingrd name */}
 
-                    
-                  }
-                  </span>
-                  <span>
-                  {
-                    
-                    this.state.ingms.map(element => {
-                      
-                    return (
-                      <p>{element}</p>
-                      
-                     
-                    ) 
-                    
-                       
-                    })
+                    <span>
+                      {this.state.ingrd.map((element) => {
+                        return <p key={element}>{element} --- </p>;
+                      })}
+                    </span>
+                    <span>
+                      {this.state.ingms.map((element) => {
+                        return <p key={this.state.ingms.indexOf(element)}>{element}</p>;
+                      })}
+                    </span>
 
-                    
-                  }
-
-                  </span>
-                 
-                 
-                 
-                 
-                 {/* this is for weight measure */}
-                 <div>
-                   {
-                    
-                   }
+                    {/* this is for weight measure */}
+                    <div>{}</div>
                   </div>
-                  
-                 
-                  
-                </div>
                 </div>
 
                 <div>
-                  <center> <p className="ingrdhead">Recipes</p></center>
-                  <div className="desc"> 
-                  {
-                    this.state.desc
-                  }
-                    
-                  </div>
-                     
+                  <center>
+                    {" "}
+                    <p className="ingrdhead">Recipes</p>
+                  </center>
+                  <div className="desc">{this.state.desc}</div>
                 </div>
-                
               </div>
             </div>
           </div>
